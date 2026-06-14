@@ -19,7 +19,7 @@ const Hero = () => {
 
           <div className='w-1/2 mx-auto mt-40 text-center'>
 
-            <h1 className='text-4xl  text-white font-bold '>
+            <h1 className='text-5xl  text-white font-bold '>
               Paln your trip with Wander Wise</h1>
 
             <p className='text-xl text-white font-medium mt-6 '>
