@@ -27,6 +27,7 @@ const Hero = () => {
               Obcaecati nemo vitae voluptatem aperiam, 
               dolorum deleniti in doloremque molestias similique aliquid!
             </p>
+            <button className='bg-blue-700 px-5 py-2 mt-6 text-white rounded-lg hover:bg-blue-800 transition duration-300'>Get Started</button>
 
             
 
