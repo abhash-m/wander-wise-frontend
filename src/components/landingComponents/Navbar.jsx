@@ -19,7 +19,7 @@ const Navbar = () => {
                 
             </nav>
 
-            <CustomButton text="login" />
+            <CustomButton text="login"  link="/login"/>
             
         </div>
        </header>
