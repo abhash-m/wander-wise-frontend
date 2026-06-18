@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const CustomButton = ({text, color, link}) => {
+const CustomButton = ({text, color, link, isLogin}) => {
 
   const navigate = useNavigate();
 

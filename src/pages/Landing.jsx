@@ -5,6 +5,8 @@ import Feautres from '../components/landingComponents/Feautres'
 import About from '../components/landingComponents/About'
 import { TestTube } from 'lucide-react'
 import Testimonials from '../components/landingComponents/Testimonials'
+import Footer from '../components/landingComponents/footer'
+
 
 const Landing = () => {
   return (
@@ -14,6 +16,11 @@ const Landing = () => {
         <Feautres />
         <About />
         <Testimonials />
+        <Footer />
+        
+        
+
+      
         
         
     </div>
