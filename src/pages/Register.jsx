@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 import {
@@ -11,8 +11,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
-import { Textarea } from "@/components/ui/textarea";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Eye, EyeClosed} from "lucide-react";
 
 const formSchema = z
   .object({
@@ -25,10 +27,14 @@ const formSchema = z
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match.",
-    fields: ["confirmPassword"],
+    path: ["confirmPassword"],
   });
 
 const Register = () => {
+   const [show, setShow] = React.useState(false);
+
+   const [showConfirm, setShowConfirm] = React.useState();
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -54,21 +60,18 @@ const Register = () => {
         </CardHeader>
         <CardContent className="space-y-2">
           <Controller
-            name="Name"
+            name="name"
             control={form.control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor={field.name}>text</FieldLabel>
+                <FieldLabel htmlFor={field.name}>Full Name</FieldLabel>
                 <Input
                   {...field}
                   id={field.name}
+                  type="text"
+                  placeholder="Ram Bahadur"
                   aria-invalid={fieldState.invalid}
-                  placeholder="Login button not working on mobile"
-                  autoComplete="off"
                 />
-                <FieldDescription>
-                  Provide a concise title for your bug report.
-                </FieldDescription>
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
                 )}
@@ -81,26 +84,89 @@ const Register = () => {
             control={form.control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor={field.name}>password</FieldLabel>
+                <FieldLabel htmlFor={field.name}>Email</FieldLabel>
                 <Input
                   {...field}
                   id={field.name}
+                  type="email"
+                  placeholder="ram.bahadur@example.com"
                   aria-invalid={fieldState.invalid}
-                  placeholder="Password"
-                  autoComplete="off"
                 />
-                <FieldDescription>
-                  Provide a concise title for your bug report.
-                </FieldDescription>
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
                 )}
               </Field>
             )}
           />
+          <div className='flex items-end gap-1'>
+            <Controller
+              name="password"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+                  <Input
+                    {...field}
+                    id={field.name}
+                    type={show ? "text" : "password"}
+                    placeholder="••••••••"
+                    aria-invalid={fieldState.invalid}
+                  />
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
+            <Button  onClick= {()=>{setShow(!show)}} type="button" size="icon" variant="outline">
+              {
+                 show ? <EyeClosed /> : <Eye /> 
+              }
+              
+            </Button>
+
+          </div>
+
+          <div className="relative">
+            <Controller
+            name="confirmPassword"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={field.name}>Confirm Password</FieldLabel>
+                <Input
+                  {...field}
+                  id={field.name}
+                  type={showConfirm ? "text" : "password"}
+                  placeholder="••••••••"
+                  aria-invalid={fieldState.invalid}
+                />
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+            
+          />
+          <div  className="absolute right-2 bottom-2" onClick={()=>{setShowConfirm(!showConfirm)}} >
+              {
+                 showConfirm ? <EyeClosed  size={18}/> : <Eye size={18}/> 
+              }
+              
+            </div>
+
+          </div>
+
+           
+
         </CardContent>
-        <CardFooter>
-          <p>Card Footer</p>
+        <CardFooter className="block">
+          <Button className="w-full" type="submit">Register</Button>
+
+          <div className="mt-2 text-center">
+            Already have an account ?
+            <a  className="text-blue-500 underline" href="/login">Login</a>
+          </div>
         </CardFooter>
       </Card>
     </form>
