@@ -14,7 +14,7 @@ import {
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Eye, EyeClosed } from "lucide-react";
+import { Eye, EyeClosed} from "lucide-react";
 
 const formSchema = z
   .object({
@@ -25,23 +25,19 @@ const formSchema = z
       .string()
       .min(8, "Password should be at least 8 characters."),
   })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match.",
-    path: ["confirmPassword"],
-  });
+  
 
 const Register = () => {
-  const [show, setShow] = React.useState(false);
+   const [show, setShow] = React.useState(false);
 
-  const [showConfirm, setShowConfirm] = React.useState();
-
+   
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      
       email: "",
       password: "",
-      confirmPassword: "",
+      
     },
   });
 
@@ -53,32 +49,12 @@ const Register = () => {
     <form onSubmit={form.handleSubmit(onSubmit)}>
       <Card className="w-1/3 mx-auto mt-32">
         <CardHeader>
-          <CardTitle>Register to WanderWise</CardTitle>
+          <CardTitle>Login to WanderWise</CardTitle>
           <CardDescription>
             Fill your details to create an account
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-2">
-          <Controller
-            name="name"
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor={field.name}>Full Name</FieldLabel>
-                <Input
-                  {...field}
-                  id={field.name}
-                  type="text"
-                  placeholder="Ram Bahadur"
-                  aria-invalid={fieldState.invalid}
-                />
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
-          />
-
           <Controller
             name="email"
             control={form.control}
@@ -98,7 +74,7 @@ const Register = () => {
               </Field>
             )}
           />
-          <div className="flex items-end gap-1">
+          <div className='flex items-end gap-1'>
             <Controller
               name="password"
               control={form.control}
@@ -118,37 +94,22 @@ const Register = () => {
                 </Field>
               )}
             />
-            <Button
-              onClick={() => {
-                setShow(!show);
-              }}
-              type="button"
-              size="icon"
-              variant="outline"
-            >
-              {show ? <EyeClosed /> : <Eye />}
+            <Button  onClick= {()=>{setShow(!show)}} type="button" size="icon" variant="outline">
+              {
+                 show ? <EyeClosed /> : <Eye /> 
+              }
+              
             </Button>
+
           </div>
 
-          <div
-            className="absolute right-2 bottom-2"
-            onClick={() => {
-              setShowConfirm(!showConfirm);
-            }}
-          >
-            {showConfirm ? <EyeClosed size={18} /> : <Eye size={18} />}
-          </div>
         </CardContent>
         <CardFooter className="block">
-          <Button className="w-full" type="submit">
-            Login
-          </Button>
+          <Button className="w-full" type="submit">Login</Button>
 
           <div className="mt-2 text-center">
             Already have an account ?
-            <a className="text-blue-500 underline" href="/register">
-              Register
-            </a>
+            <a  className="text-blue-500 underline" href="/register">Register</a>
           </div>
         </CardFooter>
       </Card>
@@ -156,4 +117,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
