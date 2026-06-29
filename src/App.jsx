@@ -1,11 +1,33 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Landing from './pages/Landing'
 import About from './pages/About'
 import Register from './pages/Register'
 import Login from './pages/Register'
+import Login from './pages/Login'
+import useAuth from './hooks/useAuth'
+import { jwtDecode } from 'jwt-decode'
 
 const App = () => {
+
+  const { token, logout} = useAuth();
+
+  const ProtectedRoutes = () => {
+    try {
+      const decodedToken = token ? jwtDecode(token) : null;
+      const userId = decodedToken?.userId;
+
+      if(!token || !userId){
+        logout();
+        <Navigate to="/login" />
+      }
+      
+    } catch (error) {
+      
+    }
+
+  }
+
   return (
    <BrowserRouter>
      <Routes>

@@ -10,8 +10,7 @@ const useApi = (endpoint, options = {}, deps = []) => {
   useEffect(() => {
     let mounted = true;
     setLoading(true);
-
-
+    
     api(endpoint, options)
       .then((res) => {
         if (mounted) setData(res.data);
